@@ -1,0 +1,528 @@
+[
+  {
+    "id": "session_1778124395_lfljyk",
+    "created_at": "2026-05-07 11:28:12",
+    "product_name": "食物链双萃杯猫湿粮",
+    "flavor": "chicken_rabbit",
+    "flavor_name": "鸡肉兔肉",
+    "theme": "0_additive",
+    "theme_name": "0添加剂认知误区科普",
+    "style": "ip_version",
+    "style_name": "IP统一版",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778124395_lfljyk/page_1.png",
+        "url": "/output/session_1778124395_lfljyk/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778124395_lfljyk/page_2.png",
+        "url": "/output/session_1778124395_lfljyk/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778124395_lfljyk/page_3.png",
+        "url": "/output/session_1778124395_lfljyk/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778124395_lfljyk/page_4.png",
+        "url": "/output/session_1778124395_lfljyk/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778124395_lfljyk/page_5.png",
+        "url": "/output/session_1778124395_lfljyk/page_5.png"
+      }
+    ],
+    "session_id": "session_1778124395_lfljyk"
+  },
+  {
+    "id": "session_1778137030_yhjwyb",
+    "created_at": "2026-05-07 14:58:47",
+    "product_name": "食物链双萃杯猫湿粮",
+    "product_image": "product_1778136478_2757.png,product_1778136478_2131.png,product_1778136478_3565.png",
+    "ip_cat_image": "ip_cat_1778137029_9538.png",
+    "ip_dog_image": "ip_dog_1778137011_4908.png",
+    "flavor": "chicken_rabbit",
+    "flavor_name": "鸡肉兔肉",
+    "theme": "0_additive",
+    "theme_name": "0添加剂认知误区科普",
+    "style": "ip_version",
+    "style_name": "IP统一版",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778137030_yhjwyb/page_1.png",
+        "url": "/output/session_1778137030_yhjwyb/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778137030_yhjwyb/page_2.png",
+        "url": "/output/session_1778137030_yhjwyb/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778137030_yhjwyb/page_3.png",
+        "url": "/output/session_1778137030_yhjwyb/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778137030_yhjwyb/page_4.png",
+        "url": "/output/session_1778137030_yhjwyb/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778137030_yhjwyb/page_5.png",
+        "url": "/output/session_1778137030_yhjwyb/page_5.png"
+      }
+    ],
+    "session_id": "session_1778137030_yhjwyb"
+  },
+  {
+    "id": "session_1778137172_huolfr",
+    "created_at": "2026-05-07 15:00:59",
+    "product_name": "食物链双萃杯猫湿粮",
+    "product_image": "product_1778136478_2757.png,product_1778136478_2131.png,product_1778136478_3565.png",
+    "ip_cat_image": "",
+    "ip_dog_image": "ip_dog_1778137011_4908.png",
+    "flavor": "chicken_pigeon",
+    "flavor_name": "鸡肉鸽肉",
+    "theme": "0_additive",
+    "theme_name": "0添加剂认知误区科普",
+    "style": "ip_version",
+    "style_name": "IP统一版",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778137172_huolfr/page_1.png",
+        "url": "/output/session_1778137172_huolfr/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778137172_huolfr/page_2.png",
+        "url": "/output/session_1778137172_huolfr/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778137172_huolfr/page_3.png",
+        "url": "/output/session_1778137172_huolfr/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778137172_huolfr/page_4.png",
+        "url": "/output/session_1778137172_huolfr/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778137172_huolfr/page_5.png",
+        "url": "/output/session_1778137172_huolfr/page_5.png"
+      }
+    ],
+    "session_id": "session_1778137172_huolfr"
+  },
+  {
+    "id": "session_1778138647_ixxtti",
+    "created_at": "2026-05-07 15:25:53",
+    "product_name": "食物链双萃杯猫湿粮",
+    "product_image": "product_1778138645_3296.webp",
+    "ip_cat_image": "",
+    "ip_dog_image": "",
+    "flavor": "chicken_rabbit",
+    "flavor_name": "鸡肉兔肉",
+    "theme": "0_additive",
+    "theme_name": "0添加剂认知误区科普",
+    "style": "ip_version",
+    "style_name": "IP统一版",
+    "special_req": "色彩总体偏蓝色调，图文笔记页数有7张",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778138647_ixxtti/page_1.png",
+        "url": "/output/session_1778138647_ixxtti/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778138647_ixxtti/page_2.png",
+        "url": "/output/session_1778138647_ixxtti/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778138647_ixxtti/page_3.png",
+        "url": "/output/session_1778138647_ixxtti/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778138647_ixxtti/page_4.png",
+        "url": "/output/session_1778138647_ixxtti/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778138647_ixxtti/page_5.png",
+        "url": "/output/session_1778138647_ixxtti/page_5.png"
+      }
+    ],
+    "session_id": "session_1778138647_ixxtti"
+  },
+  {
+    "id": "session_1778139047_virkuu",
+    "created_at": "2026-05-07 15:31:33",
+    "product_name": "小佩饮水机",
+    "product_image": "product_1778139025_3202.png",
+    "ip_cat_image": "",
+    "ip_dog_image": "",
+    "page_count": 3,
+    "page_count_name": "3张",
+    "theme": "product_intro",
+    "theme_name": "产品介绍",
+    "style": "ip_version",
+    "style_name": "IP统一版",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778139047_virkuu/page_1.png",
+        "url": "/output/session_1778139047_virkuu/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778139047_virkuu/page_2.png",
+        "url": "/output/session_1778139047_virkuu/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778139047_virkuu/page_3.png",
+        "url": "/output/session_1778139047_virkuu/page_3.png"
+      }
+    ],
+    "session_id": "session_1778139047_virkuu"
+  },
+  {
+    "id": "session_1778140178_dkllcw",
+    "created_at": "2026-05-07 15:50:24",
+    "product_name": "小佩饮水机",
+    "product_image": "product_1778139025_3202.png",
+    "ip_cat_image": "ip_cat_1778140176_4167.png",
+    "ip_dog_image": "",
+    "page_count": 3,
+    "page_count_name": "3张",
+    "theme": "product_intro",
+    "theme_name": "产品介绍",
+    "style": "ip_version",
+    "style_name": "IP统一版",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778140178_dkllcw/page_1.png",
+        "url": "/output/session_1778140178_dkllcw/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778140178_dkllcw/page_2.png",
+        "url": "/output/session_1778140178_dkllcw/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778140178_dkllcw/page_3.png",
+        "url": "/output/session_1778140178_dkllcw/page_3.png"
+      }
+    ],
+    "session_id": "session_1778140178_dkllcw"
+  },
+  {
+    "id": "session_1778146653_rouijt",
+    "created_at": "2026-05-07 17:38:57",
+    "product_name": "小佩智能猫厕所",
+    "product_image": "product_1778146613_9982.png",
+    "ip_cat_image": "ip_cat_1778146650_6758.png",
+    "ip_dog_image": "",
+    "page_count": 5,
+    "page_count_name": "5张",
+    "theme": "product_intro",
+    "theme_name": "产品介绍",
+    "style": "ip_version",
+    "style_name": "IP统一版",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778146653_rouijt/page_1.png",
+        "url": "/output/session_1778146653_rouijt/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778146653_rouijt/page_2.png",
+        "url": "/output/session_1778146653_rouijt/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778146653_rouijt/page_3.png",
+        "url": "/output/session_1778146653_rouijt/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778146653_rouijt/page_4.png",
+        "url": "/output/session_1778146653_rouijt/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778146653_rouijt/page_5.png",
+        "url": "/output/session_1778146653_rouijt/page_5.png"
+      }
+    ],
+    "session_id": "session_1778146653_rouijt"
+  },
+  {
+    "id": "session_1778318736_ulcmfp",
+    "created_at": "2026-05-09 17:26:54",
+    "product_name": "小佩饮水机",
+    "product_image": "product_1778318681_7140.png",
+    "ip_cat_image": "ip_cat_1778318727_1584.png",
+    "ip_dog_image": "",
+    "page_count": 5,
+    "page_count_name": "5张",
+    "theme": "product_intro",
+    "theme_name": "产品介绍",
+    "style": "ip_version",
+    "style_name": "IP统一版",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778318736_ulcmfp/page_1.png",
+        "url": "/output/session_1778318736_ulcmfp/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778318736_ulcmfp/page_2.png",
+        "url": "/output/session_1778318736_ulcmfp/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778318736_ulcmfp/page_3.png",
+        "url": "/output/session_1778318736_ulcmfp/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778318736_ulcmfp/page_4.png",
+        "url": "/output/session_1778318736_ulcmfp/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778318736_ulcmfp/page_5.png",
+        "url": "/output/session_1778318736_ulcmfp/page_5.png"
+      }
+    ],
+    "session_id": "session_1778318736_ulcmfp"
+  },
+  {
+    "id": "session_1778321189_pesxwe",
+    "created_at": "2026-05-09 18:07:38",
+    "product_name": "小佩饮水机",
+    "product_image": "product_1778320956_9485.png",
+    "ip_cat_image": "ip_cat_1778320972_8579.png",
+    "ip_dog_image": "",
+    "page_count": 5,
+    "page_count_name": "5张",
+    "theme": "custom",
+    "theme_name": "custom",
+    "style": "custom",
+    "style_name": "custom",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778321189_pesxwe/page_1.png",
+        "url": "/output/session_1778321189_pesxwe/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778321189_pesxwe/page_2.png",
+        "url": "/output/session_1778321189_pesxwe/page_2.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778321189_pesxwe/page_4.png",
+        "url": "/output/session_1778321189_pesxwe/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778321189_pesxwe/page_5.png",
+        "url": "/output/session_1778321189_pesxwe/page_5.png"
+      }
+    ],
+    "session_id": "session_1778321189_pesxwe"
+  },
+  {
+    "id": "session_1778321849_nnmtfl",
+    "created_at": "2026-05-09 18:18:37",
+    "product_name": "小佩饮水机",
+    "product_image": "product_1778320956_9485.png",
+    "ip_cat_image": "ip_cat_1778320972_8579.png",
+    "ip_dog_image": "",
+    "page_count": 5,
+    "page_count_name": "5张",
+    "theme": "custom",
+    "theme_name": "custom",
+    "style": "custom",
+    "style_name": "custom",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778321849_nnmtfl/page_1.png",
+        "url": "/output/session_1778321849_nnmtfl/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778321849_nnmtfl/page_2.png",
+        "url": "/output/session_1778321849_nnmtfl/page_2.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778321849_nnmtfl/page_4.png",
+        "url": "/output/session_1778321849_nnmtfl/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778321849_nnmtfl/page_5.png",
+        "url": "/output/session_1778321849_nnmtfl/page_5.png"
+      }
+    ],
+    "session_id": "session_1778321849_nnmtfl"
+  },
+  {
+    "id": "session_1778322768_dkvumq",
+    "created_at": "2026-05-09 18:34:24",
+    "product_name": "食物链双萃杯猫湿粮",
+    "product_image": "product_1778322688_5861.png,product_1778322688_8821.png,product_1778322688_4331.png,product_1778322688_6828.png",
+    "ip_cat_image": "ip_cat_1778322715_9894.png",
+    "ip_dog_image": "ip_dog_1778322719_4645.png",
+    "page_count": 5,
+    "page_count_name": "5张",
+    "theme": "custom",
+    "theme_name": "custom",
+    "style": "custom",
+    "style_name": "custom",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778322768_dkvumq/page_1.png",
+        "url": "/output/session_1778322768_dkvumq/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778322768_dkvumq/page_2.png",
+        "url": "/output/session_1778322768_dkvumq/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778322768_dkvumq/page_3.png",
+        "url": "/output/session_1778322768_dkvumq/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778322768_dkvumq/page_4.png",
+        "url": "/output/session_1778322768_dkvumq/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778322768_dkvumq/page_5.png",
+        "url": "/output/session_1778322768_dkvumq/page_5.png"
+      }
+    ],
+    "session_id": "session_1778322768_dkvumq"
+  },
+  {
+    "id": "session_1778470496_bauhwb",
+    "created_at": "2026-05-11 11:36:51",
+    "product_name": "食物链双萃杯猫湿粮",
+    "product_image": "product_1778470449_4010.png,product_1778470449_9195.png,product_1778470449_3063.png,product_1778470449_4395.png",
+    "ip_cat_image": "ip_cat_1778470459_6270.png",
+    "ip_dog_image": "ip_dog_1778470464_4837.png",
+    "page_count": 5,
+    "page_count_name": "5张",
+    "theme": "custom",
+    "theme_name": "custom",
+    "style": "custom",
+    "style_name": "custom",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778470496_bauhwb/page_1.png",
+        "url": "/output/session_1778470496_bauhwb/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778470496_bauhwb/page_2.png",
+        "url": "/output/session_1778470496_bauhwb/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778470496_bauhwb/page_3.png",
+        "url": "/output/session_1778470496_bauhwb/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778470496_bauhwb/page_4.png",
+        "url": "/output/session_1778470496_bauhwb/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778470496_bauhwb/page_5.png",
+        "url": "/output/session_1778470496_bauhwb/page_5.png"
+      }
+    ],
+    "session_id": "session_1778470496_bauhwb"
+  },
+  {
+    "id": "session_1778739009_ffzsgj",
+    "created_at": "2026-05-14 14:11:57",
+    "product_name": "食物链双萃杯猫湿粮",
+    "product_image": "product_1778738982_7256.png,product_1778738982_2140.png,product_1778738982_2011.png,product_1778738982_8940.png",
+    "ip_cat_image": "ip_cat_1778738992_3896.png",
+    "ip_dog_image": "ip_dog_1778738995_1399.png",
+    "page_count": 5,
+    "page_count_name": "5张",
+    "theme": "custom",
+    "theme_name": "custom",
+    "style": "custom",
+    "style_name": "custom",
+    "special_req": "",
+    "images": [
+      {
+        "page": 1,
+        "file": "session_1778739009_ffzsgj/page_1.png",
+        "url": "/output/session_1778739009_ffzsgj/page_1.png"
+      },
+      {
+        "page": 2,
+        "file": "session_1778739009_ffzsgj/page_2.png",
+        "url": "/output/session_1778739009_ffzsgj/page_2.png"
+      },
+      {
+        "page": 3,
+        "file": "session_1778739009_ffzsgj/page_3.png",
+        "url": "/output/session_1778739009_ffzsgj/page_3.png"
+      },
+      {
+        "page": 4,
+        "file": "session_1778739009_ffzsgj/page_4.png",
+        "url": "/output/session_1778739009_ffzsgj/page_4.png"
+      },
+      {
+        "page": 5,
+        "file": "session_1778739009_ffzsgj/page_5.png",
+        "url": "/output/session_1778739009_ffzsgj/page_5.png"
+      }
+    ],
+    "session_id": "session_1778739009_ffzsgj"
+  }
+]

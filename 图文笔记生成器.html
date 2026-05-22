@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食物链双萃杯 - 小红书图文笔记生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-green: #2D8B6F;
+            --brand-green-light: #E8F5F1;
+            --brand-green-dark: #1E6B54;
+            --text-dark: #1A1A1A;
+            --text-gray: #666666;
+            --text-light: #999999;
+            --bg-white: #FFFFFF;
+            --bg-gray: #F7F8FA;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-white);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-gray);
+            color: var(--text-dark);
+        }
+
+        .nav-btn.active {
+            background: var(--brand-green);
+            color: white;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: var(--bg-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-number {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 32px;
+            height: 32px;
+            background: var(--brand-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* Version Tabs */
+        .version-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .version-tab {
+            padding: 12px 24px;
+            border: 2px solid var(--bg-white);
+            background: var(--bg-white);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .version-tab:hover {
+            border-color: var(--brand-green);
+            color: var(--brand-green);
+        }
+
+        .version-tab.active {
+            background: var(--brand-green);
+            color: white;
+            border-color: var(--brand-green);
+        }
+
+        /* Generate Section */
+        .generate-section {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .generate-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .generate-title {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 32px;
+            color: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--bg-gray);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-dark);
+            background: var(--bg-white);
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--brand-green);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 6px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px 32px;
+            background: var(--brand-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 12px;
+        }
+
+        .submit-btn:hover {
+            background: var(--brand-green-dark);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Status */
+        .status-box {
+            padding: 20px;
+            background: var(--brand-green-light);
+            border-radius: 12px;
+            margin-top: 24px;
+            display: none;
+        }
+
+        .status-box.show {
+            display: block;
+        }
+
+        .status-title {
+            font-weight: 600;
+            color: var(--brand-green-dark);
+            margin-bottom: 8px;
+        }
+
+        .status-text {
+            font-size: 14px;
+            color: var(--brand-green);
+        }
+
+        /* Info Section */
+        .info-section {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-top: 48px;
+        }
+
+        .info-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            padding: 16px;
+            background: var(--bg-gray);
+            border-radius: 12px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-dark);
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .modal-prev { left: -70px; }
+        .modal-next { right: -70px; }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card, .generate-card, .info-section {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .modal-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">食物链</div>
+            <div>
+                <div class="logo-text">小红书图文笔记生成器</div>
+                <div class="logo-sub">品牌内容创作工具</div>
+            </div>
+        </div>
+        <nav class="header-nav">
+            <button class="nav-btn active" data-page="gallery">📸 效果预览</button>
+            <button class="nav-btn" data-page="generate">✨ 生成新内容</button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Gallery Page -->
+        <section class="page-section active" id="galleryPage">
+            <section class="hero">
+                <h1>「0添加剂」认知误区科普系列</h1>
+                <p>食物链双萃杯猫湿粮 · 鸡肉兔肉配方 | 小红书图文笔记 · 共5张 | 讲堂科普风格</p>
+            </section>
+
+            <!-- Version Tabs -->
+            <section class="version-tabs">
+                <button class="version-tab active" data-version="ip_version">IP统一版</button>
+                <button class="version-tab" data-version="beautiful_A">温馨质感版</button>
+                <button class="version-tab" data-version="beautiful_B">现代冲击版</button>
+            </section>
+
+            <!-- Cards Grid -->
+            <section class="cards-grid" id="cardsGrid"></section>
+
+            <!-- Info Section -->
+            <section class="info-section">
+                <h2>📋 内容框架</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">内容类型</div>
+                        <div class="info-value">知识科普</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">主题</div>
+                        <div class="info-value">0添加剂认知误区 + 天然替代方案</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">IP形象</div>
+                        <div class="info-value">猫咪讲师 + 狗狗学生</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">品牌色</div>
+                        <div class="info-value">#3415c 自然绿</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">调性风格</div>
+                        <div class="info-value">讲堂科普 · 科学冷静</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">图片规格</div>
+                        <div class="info-value">1024×1366 (3:4竖版)</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h2>📖 图文框架</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">第1页 · 首图</div>
+                        <div class="info-value">揭露「0添加」≠「0添加剂」认知误区</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">第2页 · 行业真相</div>
+                        <div class="info-value">0添加文字游戏的套路揭秘</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">第3页 · 解决方案</div>
+                        <div class="info-value">天然食材替代人工添加剂方案</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">第4页 · 成分科普</div>
+                        <div class="info-value">A2型绵羊乳双重健康升级</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">第5页 · 行动号召</div>
+                        <div class="info-value">一餐一杯真正0添加</div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Generate Page -->
+        <section class="page-section" id="generatePage">
+            <section class="hero">
+                <h1>生成新图文笔记</h1>
+                <p>基于策划案要求，输入内容参数生成专属小红书图文笔记</p>
+            </section>
+
+            <div class="generate-section">
+                <div class="generate-card">
+                    <div class="generate-title">📝 内容参数配置</div>
+
+                    <div class="form-group">
+                        <label class="form-label">产品名称</label>
+                        <input type="text" class="form-input" id="productName" placeholder="例如：食物链双萃杯猫湿粮">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">产品口味/配方</label>
+                        <select class="form-select" id="productFlavor">
+                            <option value="chicken_rabbit">鸡肉兔肉配方</option>
+                            <option value="chicken_pumpkin">鸡肉南瓜配方</option>
+                            <option value="chicken_pigeon">鸡肉鸽肉配方</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">内容主题</label>
+                        <select class="form-select" id="contentTheme">
+                            <option value="0_additive">0添加剂认知误区科普</option>
+                            <option value="natural_ingredients">天然食材替代方案</option>
+                            <option value="a2_milk">A2绵羊乳健康科普</option>
+                            <option value="product_intro">产品介绍</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">生成版本风格</label>
+                        <select class="form-select" id="versionStyle">
+                            <option value="ip_version">IP统一版 - 统一品牌形象</option>
+                            <option value="beautiful_A">温馨质感版 - 温暖有质感</option>
+                            <option value="beautiful_B">现代冲击版 - 炫酷有冲击力</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">特殊需求（可选）</label>
+                        <textarea class="form-textarea" id="specialReqs" placeholder="例如：增加更多猫咪元素、调整配色比例等"></textarea>
+                        <div class="form-hint">请描述您的特殊需求，越详细越好</div>
+                    </div>
+
+                    <button class="submit-btn" id="generateBtn" onclick="handleGenerate()">
+                        🚀 开始生成
+                    </button>
+
+                    <div class="status-box" id="statusBox">
+                        <div class="status-title">生成状态</div>
+                        <div class="status-text" id="statusText">准备就绪</div>
+                    </div>
+                </div>
+
+                <section class="info-section" style="margin-top: 32px;">
+                    <h2>💡 使用说明</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-value">1. 选择产品信息</div>
+                            <div class="info-label">填写产品名称和配方口味</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">2. 确定内容主题</div>
+                            <div class="info-label">选择本次要生成的内容类型</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">3. 选择风格版本</div>
+                            <div class="info-label">根据品牌调性选择合适的版本</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">4. 提交生成</div>
+                            <div class="info-label">系统将调用AI模型生成5张图文笔记</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>食物链品牌内容创作 · 腾讯内部使用</p>
+    </footer>
+
+    <!-- Preview Modal -->
+    <div class="modal" id="previewModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <span class="modal-nav modal-prev" onclick="prevImage()">‹</span>
+            <img class="modal-image" id="modalImage" src="" alt="预览">
+            <span class="modal-nav modal-next" onclick="nextImage()">›</span>
+        </div>
+    </div>
+
+    <script>
+        // 图片数据
+        const imageData = {
+            ip_version: [
+                { title: '首图 - 揭露真相', desc: '猫咪讲师站讲台 · 狗学生记笔记', file: '第1页_首图.png' },
+                { title: '行业真相', desc: '文字游戏套路揭秘', file: '第2页_行业真相.png' },
+                { title: '解决方案', desc: '天然食材替代方案', file: '第3页_解决方案.png' },
+                { title: '成分科普', desc: 'A2绵羊乳健康升级', file: '第4页_成分科普.png' },
+                { title: '行动号召', desc: '一餐一杯刚刚好', file: '第5页_行动号召.png' }
+            ],
+            beautiful_A: [
+                { title: '温馨质感 · 首图', desc: '暖色调木质讲台柔和光影', file: 'A1_首图_温馨质感.png' },
+                { title: '温馨质感 · 行业真相', desc: '天鹅绒背景金色边框', file: 'A2_行业真相_温馨质感.png' },
+                { title: '温馨质感 · 解决方案', desc: '大理石站台珠宝光泽', file: 'A3_解决方案_温馨质感.png' },
+                { title: '温馨质感 · 成分科普', desc: '纸张纹理植物图案', file: 'A4_成分科普_温馨质感.png' },
+                { title: '温馨质感 · 行动号召', desc: '阳光厨房金色时刻', file: 'A5_行动号召_温馨质感.png' }
+            ],
+            beautiful_B: [
+                { title: '现代冲击 · 首图', desc: '深色背景霓虹绿光', file: 'B1_首图_现代冲击.png' },
+                { title: '现代冲击 · 行业真相', desc: '故障艺术红色警告', file: 'B2_行业真相_现代冲击.png' },
+                { title: '现代冲击 · 解决方案', desc: '全息投影futurist底座', file: 'B3_解决方案_现代冲击.png' },
+                { title: '现代冲击 · 成分科普', desc: '数据可视化进度条', file: 'B4_成分科普_现代冲击.png' },
+                { title: '现代冲击 · 行动号召', desc: '极简白色几何装饰', file: 'B5_行动号召_现代冲击.png' }
+            ]
+        };
+
+        const basePath = '/Users/choushuaiqi/Movies/Videos/Media.localized/Desktop/食物链-图文笔记';
+        const versionPaths = {
+            ip_version: `${basePath}/generated_ip_version`,
+            beautiful_A: `${basePath}/generated_beautiful_A`,
+            beautiful_B: `${basePath}/generated_beautiful_B`
+        };
+
+        let currentVersion = 'ip_version';
+        let currentIndex = 0;
+
+        // 渲染卡片
+        function renderCards(version) {
+            const grid = document.getElementById('cardsGrid');
+            const images = imageData[version];
+
+            grid.innerHTML = images.map((img, index) => `
+                <div class="card" onclick="openModal(${index})">
+                    <div class="card-image">
+                        <img src="file://${versionPaths[version]}/${img.file}" alt="${img.title}">
+                        <div class="card-number">${index + 1}</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">${img.title}</div>
+                        <div class="card-desc">${img.desc}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 页面导航
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const page = this.dataset.page;
+                document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+                document.getElementById(page + 'Page').classList.add('active');
+            });
+        });
+
+        // 版本切换
+        document.querySelectorAll('.version-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.version-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentVersion = this.dataset.version;
+                renderCards(currentVersion);
+            });
+        });
+
+        // Modal控制
+        function openModal(index) {
+            currentIndex = index;
+            const img = imageData[currentVersion][index];
+            document.getElementById('modalImage').src = `file://${versionPaths[currentVersion]}/${img.file}`;
+            document.getElementById('previewModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('previewModal').classList.remove('show');
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + 5) % 5;
+            document.getElementById('modalImage').src = `file://${versionPaths[currentVersion]}/${imageData[currentVersion][currentIndex].file}`;
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % 5;
+            document.getElementById('modalImage').src = `file://${versionPaths[currentVersion]}/${imageData[currentVersion][currentIndex].file}`;
+        }
+
+        // 键盘事件
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('previewModal').classList.contains('show')) {
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'ArrowRight') nextImage();
+            }
+        });
+
+        document.getElementById('previewModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // 生成处理
+        function handleGenerate() {
+            const btn = document.getElementById('generateBtn');
+            const statusBox = document.getElementById('statusBox');
+            const statusText = document.getElementById('statusText');
+
+            btn.disabled = true;
+            btn.textContent = '⏳ 生成中...';
+            statusBox.classList.add('show');
+            statusText.textContent = '正在调用 wan2.7-image-pro 生成图文笔记...';
+
+            // 模拟生成过程
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 20;
+                if (progress <= 80) {
+                    statusText.textContent = `生成进度: ${progress}% - 正在生成第 ${Math.ceil(progress/20)} 页...`;
+                } else if (progress === 100) {
+                    clearInterval(interval);
+                    statusText.textContent = '✅ 生成完成！请在"效果预览"中查看';
+                    btn.disabled = false;
+                    btn.textContent = '🚀 开始生成';
+
+                    // 3秒后关闭状态框
+                    setTimeout(() => {
+                        statusBox.classList.remove('show');
+                    }, 3000);
+                }
+            }, 1000);
+
+            // 实际项目中这里会调用API
+            // 演示用，实际不会真正生成
+        }
+
+        // 初始化
+        renderCards(currentVersion);
+    </script>
+</body>
+</html>

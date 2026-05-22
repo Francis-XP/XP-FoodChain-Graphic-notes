@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通用图文笔记生成器 - AI模型 + AI模型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-green: #2D8B6F;
+            --brand-green-light: #E8F5F1;
+            --brand-green-dark: #1E6B54;
+            --text-dark: #1A1A1A;
+            --text-gray: #666666;
+            --text-light: #999999;
+            --bg-white: #FFFFFF;
+            --bg-gray: #F7F8FA;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+            --radius: 12px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-white);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-gray);
+        }
+
+        .nav-btn.active {
+            background: var(--brand-green);
+            color: white;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        /* Page Sections */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: var(--text-gray);
+        }
+
+        /* Form */
+        .form-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--bg-gray);
+            border-radius: var(--radius);
+            font-size: 14px;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--brand-green);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-hint {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Upload */
+        .upload-zone {
+            border: 2px dashed #ddd;
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--brand-green);
+            background: var(--brand-green-light);
+        }
+
+        .upload-zone.has-file {
+            border-color: var(--brand-green);
+            background: var(--brand-green-light);
+        }
+
+        .upload-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .upload-text {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .upload-input {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .preview-grid {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .preview-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid var(--brand-green);
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-item .remove-btn {
+            position: absolute;
+            top: 2px; right: 2px;
+            width: 20px; height: 20px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ip-preview-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .ip-preview-block img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid var(--brand-green);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: var(--brand-green);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-green-dark);
+        }
+
+        .btn-primary:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            color: var(--brand-green);
+            border: 2px solid var(--brand-green);
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--brand-green-light);
+        }
+
+        /* Skeleton Preview */
+        .skeleton-section {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .skeleton-section.show {
+            display: block;
+        }
+
+        .skeleton-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--brand-green-dark);
+        }
+
+        .skeleton-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--brand-green);
+        }
+
+        .skeleton-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .skeleton-role-tag {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .role-hook { background: #FF6B6B; }
+        .role-truth { background: #FFA726; }
+        .role-solution { background: #42A5F5; }
+        .role-science { background: #66BB6A; }
+        .role-cta { background: #AB47BC; }
+
+        .skeleton-page-num {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--brand-green);
+        }
+
+        .skeleton-field {
+            margin-bottom: 12px;
+        }
+
+        .skeleton-field-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .skeleton-field-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1.5px solid #eee;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .skeleton-field-input:focus {
+            outline: none;
+            border-color: var(--brand-green);
+        }
+
+        .skeleton-field-textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1.5px solid #eee;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .skeleton-field-textarea:focus {
+            outline: none;
+            border-color: var(--brand-green);
+        }
+
+        .skeleton-points-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skeleton-point-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .skeleton-point-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1.5px solid #eee;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .skeleton-point-input:focus {
+            outline: none;
+            border-color: var(--brand-green);
+        }
+
+        .skeleton-point-remove {
+            width: 24px; height: 24px;
+            border: none;
+            background: #ffebee;
+            color: #d32f2f;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-point-btn {
+            padding: 4px 10px;
+            border: 1.5px dashed #ccc;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-gray);
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        .add-point-btn:hover {
+            border-color: var(--brand-green);
+            color: var(--brand-green);
+        }
+
+        /* Result */
+        .result-section {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .result-section.show {
+            display: block;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .result-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .result-card img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+        }
+
+        .result-card-body {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .result-card-body a {
+            color: var(--brand-green);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        /* Progress */
+        .progress-box {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--brand-green-light);
+            border-radius: var(--radius);
+            display: none;
+        }
+
+        .progress-box.show {
+            display: block;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: var(--brand-green-dark);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--brand-green);
+        }
+
+        /* History / Gallery (reuse existing styles) */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .history-item {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .history-item-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .history-product-name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .history-meta {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .history-item-right {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-view {
+            background: var(--brand-green-light);
+            color: var(--brand-green-dark);
+        }
+
+        .btn-download {
+            background: var(--brand-green);
+            color: white;
+        }
+
+        .btn-delete {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--bg-white);
+            background: var(--bg-white);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-gray);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn.active {
+            background: var(--brand-green);
+            color: white;
+            border-color: var(--brand-green);
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-preview {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+
+        .color-input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid var(--bg-gray);
+            border-radius: var(--radius);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">AI</div>
+            <div>
+                <div class="logo-text">通用图文笔记生成器</div>
+                <div class="logo-sub">AI模型 骨架 + AI模型 出图</div>
+            </div>
+        </div>
+        <div class="nav">
+            <button class="nav-btn active" onclick="switchTab('generate')">📝 生成</button>
+            <button class="nav-btn" onclick="switchTab('history')">📋 使用历史</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 生成页面 -->
+        <div class="page active" id="page-generate">
+            <div class="hero">
+                <h1>通用图文笔记生成器</h1>
+                <p>填写产品信息 → AI模型 生成框架 → 确认后 AI模型 出图</p>
+            </div>
+
+            <div class="form-card">
+                <div class="form-title">📦 产品信息</div>
+
+                <div class="form-group">
+                    <label class="form-label">产品名称 *</label>
+                    <input class="form-input" id="productName" placeholder="例：食物链双萃杯猫湿粮" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">核心卖点（用逗号或换行分隔）</label>
+                    <textarea class="form-textarea" id="sellingPoints" placeholder="例：0添加剂、A2羊奶、天然食材"></textarea>
+                    <div class="form-hint">AI模型 会根据卖点生成每页的内容框架</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">目标受众</label>
+                    <input class="form-input" id="targetAudience" placeholder="例：养猫宠主、成分党" value="养猫宠主" />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">内容主题</label>
+                        <input class="form-input" id="themeInput" placeholder="例：误区科普、成分解析" value="误区科普" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">图文笔记张数</label>
+                        <select class="form-select" id="pageCount">
+                            <option value="1">1张</option>
+                            <option value="3">3张</option>
+                            <option value="5" selected>5张</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">生成风格描述</label>
+                        <input class="form-input" id="styleDesc" placeholder="例：温馨自然、现代简约、高级质感" value="温馨自然，绿色品牌色，小红书风格" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">品牌色</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="brandColor" value="#3415c" onchange="document.getElementById('brandColorText').value=this.value" />
+                            <input class="form-input color-input" id="brandColorText" value="#3415c" onchange="document.getElementById('brandColor').value=this.value" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">特殊要求（可选）</label>
+                    <textarea class="form-textarea" id="specialReqs" placeholder="例：画面中加入猫咪元素、使用手绘风格"></textarea>
+                </div>
+            </div>
+
+            <!-- 上传图片 -->
+            <div class="form-card" style="margin-top: 20px;">
+                <div class="form-title">🖼️ 上传图片（可选）</div>
+
+                <div class="form-group">
+                    <label class="form-label">产品图片（支持多图，将轮换使用）</label>
+                    <div class="upload-zone" id="productUploadZone">
+                            <label for="productImagesInput" style="display:block;">
+                        <div class="upload-icon">📦</div>
+                        <div class="upload-text">点击上传产品图片（支持多图）</div>
+                            </label>
+                        <input type="file" id="productImagesInput" class="upload-input" accept="image/*" multiple onchange="handleProductUpload()" />
+                    </div>
+                    <div class="preview-grid" id="productPreviewGrid"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">IP形象 - 猫（可选）</label>
+                        <div class="upload-zone" id="ipCatUploadZone">
+                            <label for="ipCatInput" style="display:block;">
+                            <div class="upload-icon">🐱</div>
+                            <div class="upload-text">上传猫IP形象</div>
+                            </label>
+                            <input type="file" id="ipCatInput" class="upload-input" accept="image/*" onchange="handleIpUpload('cat')" />
+                        </div>
+                        <div class="ip-preview-block" id="ipCatPreview" style="display:none;">
+                            <img id="ipCatPreviewImg" src="" />
+                            <button class="btn-small btn-delete" onclick="removeIp('cat')">移除</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">IP形象 - 狗（可选）</label>
+                        <div class="upload-zone" id="ipDogUploadZone">
+                            <label for="ipDogInput" style="display:block;">
+                            <div class="upload-icon">🐶</div>
+                            <div class="upload-text">上传狗IP形象</div>
+                            </label>
+                            <input type="file" id="ipDogInput" class="upload-input" accept="image/*" onchange="handleIpUpload('dog')" />
+                        </div>
+                        <div class="ip-preview-block" id="ipDogPreview" style="display:none;">
+                            <img id="ipDogPreviewImg" src="" />
+                            <button class="btn-small btn-delete" onclick="removeIp('dog')">移除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step1: 预览 Prompt 骨架 -->
+            <button class="btn-primary" id="btnPreview" onclick="previewPrompt()">🔮 预览 Prompt 骨架</button>
+
+            <!-- 进度 -->
+            <div class="progress-box" id="progressBox">
+                <div class="progress-title" id="progressTitle">处理中...</div>
+                <div class="progress-text" id="progressText"></div>
+            </div>
+
+            <!-- 骨架预览区 -->
+            <div class="skeleton-section" id="skeletonSection">
+                <div class="skeleton-title">📋 Prompt 骨架预览（可编辑）</div>
+                <div id="skeletonCards"></div>
+                <button class="btn-primary" id="btnConfirm" onclick="confirmGenerate()" style="margin-top: 16px;">🚀 确认生成图文</button>
+            </div>
+
+            <!-- 生成结果 -->
+            <div class="result-section" id="resultSection">
+                <div class="skeleton-title">🎉 生成完成！</div>
+                <div class="result-grid" id="resultGrid"></div>
+                <button class="btn-secondary" id="btnDownload" style="margin-top: 16px; display:none;" onclick="downloadResult()">📥 一键下载 ZIP</button>
+            </div>
+        </div>
+
+        <!-- 历史页面 -->
+        <div class="page" id="page-history">
+            <div class="hero">
+                <h1>使用历史</h1>
+                <p>查看和重新下载历史生成记录</p>
+            </div>
+            <div class="history-list" id="historyList">
+                <div style="text-align:center; color:#999; padding:40px;">加载中...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== 状态 ==========
+        let uploadedProductImages = [];
+        let uploadedIpCat = '';
+        let uploadedIpDog = '';
+        let currentSkeleton = null;
+        let currentSessionId = '';
+
+        // ========== Tab 切换 ==========
+        function switchTab(tab) {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + tab).classList.add('active');
+
+            if (tab === 'history') loadHistory();
+        }
+
+        // ========== 产品图上传 ==========
+        function handleProductUpload() {
+            const input = document.getElementById('productImagesInput');
+            const files = input.files;
+            if (!files || files.length === 0) return;
+
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            formData.append('type', 'product');
+
+            fetch('/api/upload', { method: 'POST', body: formData })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        data.files.forEach(f => uploadedProductImages.push(f.filename));
+                        renderProductPreview();
+                    } else {
+                        alert('上传失败：' + (data.error || '未知错误'));
+                    }
+                })
+                .catch(e => alert('上传失败：' + e));
+        }
+
+        function renderProductPreview() {
+            const grid = document.getElementById('productPreviewGrid');
+            grid.innerHTML = '';
+            uploadedProductImages.forEach((filename, idx) => {
+                const div = document.createElement('div');
+                div.className = 'preview-item';
+                div.innerHTML = `
+                    <img src="/uploads/${filename}" />
+                    <button class="remove-btn" onclick="removeProductImage(${idx})">×</button>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function removeProductImage(idx) {
+            uploadedProductImages.splice(idx, 1);
+            renderProductPreview();
+        }
+
+        // ========== IP 上传 ==========
+        function handleIpUpload(type) {
+            const input = document.getElementById('ip' + (type === 'cat' ? 'Cat' : 'Dog') + 'Input');
+            const zone = document.getElementById(type === 'cat' ? 'ipCatUploadZone' : 'ipDogUploadZone');
+            const file = input.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('type', 'ip_' + type);
+
+            fetch('/api/upload', { method: 'POST', body: formData })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        if (type === 'cat') {
+                            uploadedIpCat = data.filename;
+                            document.getElementById('ipCatPreviewImg').src = data.url;
+                            document.getElementById('ipCatPreview').style.display = 'flex';
+                        } else {
+                            uploadedIpDog = data.filename;
+                            document.getElementById('ipDogPreviewImg').src = data.url;
+                            document.getElementById('ipDogPreview').style.display = 'flex';
+                        }
+                    } else {
+                        alert('上传失败：' + (data.error || '未知错误'));
+                    }
+                })
+                .catch(e => alert('上传失败：' + e));
+        }
+
+        function removeIp(type) {
+            if (type === 'cat') {
+                uploadedIpCat = '';
+                document.getElementById('ipCatPreview').style.display = 'none';
+            } else {
+                uploadedIpDog = '';
+                document.getElementById('ipDogPreview').style.display = 'none';
+            }
+        }
+
+        // ========== 预览 Prompt 骨架 ==========
+        async function previewPrompt() {
+            const productName = document.getElementById('productName').value.trim();
+            if (!productName) {
+                alert('请填写产品名称');
+                return;
+            }
+
+            const sellingPoints = document.getElementById('sellingPoints').value.trim();
+            const targetAudience = document.getElementById('targetAudience').value.trim();
+            const theme = document.getElementById('themeInput').value.trim();
+            const pageCount = parseInt(document.getElementById('pageCount').value);
+            const styleDesc = document.getElementById('styleDesc').value.trim();
+            const brandColor = document.getElementById('brandColor').value;
+
+            // 显示进度
+            document.getElementById('btnPreview').disabled = true;
+            document.getElementById('progressBox').classList.add('show');
+            document.getElementById('progressTitle').textContent = '🤖 AI模型 正在生成 Prompt 骨架...';
+            document.getElementById('progressText').textContent = '请稍候，预计 5-10 秒...';
+
+            try {
+                const res = await fetch('/api/generate-prompt', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productName,
+                        sellingPoints,
+                        targetAudience,
+                        theme,
+                        pageCount,
+                        styleDesc,
+                        brandColor
+                    })
+                });
+
+                const data = await res.json();
+                document.getElementById('btnPreview').disabled = false;
+                document.getElementById('progressBox').classList.remove('show');
+
+                if (data.success) {
+                    currentSkeleton = data.skeleton;
+                    renderSkeletonPreview(data.skeleton);
+                } else {
+                    alert('骨架生成失败：' + (data.error || '未知错误'));
+                }
+            } catch(e) {
+                document.getElementById('btnPreview').disabled = false;
+                document.getElementById('progressBox').classList.remove('show');
+                alert('请求失败：' + e);
+            }
+        }
+
+        // ========== 渲染骨架预览 ==========
+        function renderSkeletonPreview(skeleton) {
+            const container = document.getElementById('skeletonCards');
+            container.innerHTML = '';
+
+            const roleLabels = {
+                'hook': '钩子页',
+                'truth': '真相页',
+                'solution': '方案页',
+                'science': '科学页',
+                'cta': '行动号召页'
+            };
+
+            skeleton.forEach((item, idx) => {
+                const role = item.role || 'hook';
+                const roleLabel = roleLabels[role] || role;
+                const roleClass = 'role-' + role;
+
+                // 构建要点 HTML
+                let pointsHtml = '';
+                const points = item.points || [];
+                points.forEach((pt, pi) => {
+                    pointsHtml += `
+                        <div class="skeleton-point-item">
+                            <input class="skeleton-point-input" value="${escapeHtml(pt)}" onchange="updateSkeletonPoint(${idx}, ${pi}, this.value)" />
+                            <button class="skeleton-point-remove" onclick="removeSkeletonPoint(${idx}, ${pi})">×</button>
+                        </div>
+                    `;
+                });
+
+                const card = document.createElement('div');
+                card.className = 'skeleton-card';
+                card.innerHTML = `
+                    <div class="skeleton-card-header">
+                        <span class="skeleton-page-num">第 ${idx + 1} 页</span>
+                        <span class="skeleton-role-tag ${roleClass}">${roleLabel}</span>
+                    </div>
+                    <div class="skeleton-field">
+                        <div class="skeleton-field-label">标题</div>
+                        <input class="skeleton-field-input" value="${escapeHtml(item.title || '')}" onchange="updateSkeletonField(${idx}, 'title', this.value)" />
+                    </div>
+                    <div class="skeleton-field">
+                        <div class="skeleton-field-label">信息要点（每行一条）</div>
+                        <div id="points-${idx}">
+                            ${pointsHtml}
+                        </div>
+                        <button class="add-point-btn" onclick="addSkeletonPoint(${idx})">+ 添加要点</button>
+                    </div>
+                    <div class="skeleton-field">
+                        <div class="skeleton-field-label">画面描述（英文，给 AI 生图用）</div>
+                        <textarea class="skeleton-field-textarea" onchange="updateSkeletonField(${idx}, 'scene', this.value)">${(item.scene || '')}</textarea>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('skeletonSection').classList.add('show');
+            document.getElementById('resultSection').classList.remove('show');
+        }
+
+        function updateSkeletonField(idx, field, value) {
+            if (currentSkeleton && currentSkeleton[idx]) {
+                currentSkeleton[idx][field] = value;
+            }
+        }
+
+        function updateSkeletonPoint(pageIdx, pointIdx, value) {
+            if (currentSkeleton && currentSkeleton[pageIdx] && currentSkeleton[pageIdx].points) {
+                currentSkeleton[pageIdx].points[pointIdx] = value;
+            }
+        }
+
+        function addSkeletonPoint(pageIdx) {
+            if (!currentSkeleton[pageIdx].points) currentSkeleton[pageIdx].points = [];
+            currentSkeleton[pageIdx].points.push('');
+            renderSkeletonPreview(currentSkeleton);
+        }
+
+        function removeSkeletonPoint(pageIdx, pointIdx) {
+            currentSkeleton[pageIdx].points.splice(pointIdx, 1);
+            renderSkeletonPreview(currentSkeleton);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ========== 确认生成 ==========
+        async function confirmGenerate() {
+            const productName = document.getElementById('productName').value.trim();
+            if (!productName) {
+                alert('请填写产品名称');
+                return;
+            }
+
+            if (!currentSkeleton || currentSkeleton.length === 0) {
+                alert('请先预览 Prompt 骨架');
+                return;
+            }
+
+            document.getElementById('btnConfirm').disabled = true;
+            document.getElementById('progressBox').classList.add('show');
+            document.getElementById('progressTitle').textContent = '🎨 AI模型 正在生成图文笔记...';
+            document.getElementById('progressText').textContent = '第 1 页开始生成...';
+
+            try {
+                const res = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productName,
+                        productImage: uploadedProductImages.join(','),
+                        ipCatImage: uploadedIpCat,
+                        ipDogImage: uploadedIpDog,
+                        pageCount: parseInt(document.getElementById('pageCount').value),
+                        theme: 'custom',
+                        style: 'custom',
+                        specialReqs: document.getElementById('specialReqs').value.trim(),
+                        skeleton: currentSkeleton
+                    })
+                });
+
+                const data = await res.json();
+                document.getElementById('btnConfirm').disabled = false;
+                document.getElementById('progressBox').classList.remove('show');
+
+                if (data.success) {
+                    currentSessionId = data.session_id;
+                    renderResult(data.images);
+                } else {
+                    alert('生成失败：' + (data.error || '未知错误'));
+                }
+            } catch(e) {
+                document.getElementById('btnConfirm').disabled = false;
+                document.getElementById('progressBox').classList.remove('show');
+                alert('请求失败：' + e);
+            }
+        }
+
+        // ========== 渲染结果 ==========
+        function renderResult(images) {
+            const grid = document.getElementById('resultGrid');
+            grid.innerHTML = '';
+
+            images.forEach(img => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                card.innerHTML = `
+                    <img src="${img.url}" />
+                    <div class="result-card-body">
+                        <span>第 ${img.page} 页</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            document.getElementById('resultSection').classList.add('show');
+            document.getElementById('btnDownload').style.display = 'block';
+        }
+
+        // ========== 下载 ==========
+        function downloadResult() {
+            if (!currentSessionId) return;
+            window.open('/api/download/' + currentSessionId, '_blank');
+        }
+
+        // ========== 历史记录 ==========
+        function loadHistory() {
+            const list = document.getElementById('historyList');
+            list.innerHTML = '<div style="text-align:center; color:#999; padding:40px;">加载中...</div>';
+
+            fetch('/api/history')
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.success || !data.history || data.history.length === 0) {
+                        list.innerHTML = '<div style="text-align:center; color:#999; padding:40px;">暂无历史记录</div>';
+                        return;
+                    }
+
+                    list.innerHTML = '';
+                    data.history.forEach(record => {
+                        const item = document.createElement('div');
+                        item.className = 'history-item';
+                        item.innerHTML = `
+                            <div class="history-item-left">
+                                <div class="history-product-name">${escapeHtml(record.product_name || '未命名')}</div>
+                                <div class="history-meta">${record.created_at || ''} | ${record.page_count_name || record.page_count + '张'} | ${record.theme_name || record.theme || ''}</div>
+                            </div>
+                            <div class="history-item-right">
+                                <button class="btn-small btn-view" onclick="toggleHistoryPreview('${record.id}', this)">查看</button>
+                                <button class="btn-small btn-download" onclick="window.open('/api/download/${record.id}', '_blank')">下载</button>
+                                <button class="btn-small btn-delete" onclick="deleteHistory('${record.id}')">删除</button>
+                            </div>
+                            <div id="history-preview-${record.id}" style="display:none; grid-column:1/-1; margin-top:12px;">
+                            </div>
+                        `;
+                        list.appendChild(item);
+
+                        // 渲染历史图片预览
+                        if (record.images && record.images.length > 0) {
+                            const preview = document.getElementById('history-preview-' + record.id);
+                            const grid = document.createElement('div');
+                            grid.style.display = 'flex';
+                            grid.style.gap = '10px';
+                            grid.style.flexWrap = 'wrap';
+                            record.images.forEach(img => {
+                                const thumb = document.createElement('img');
+                                thumb.src = img.url;
+                                thumb.style.width = '100px';
+                                thumb.style.height = '133px';
+                                thumb.style.objectFit = 'cover';
+                                thumb.style.borderRadius = '8px';
+                                grid.appendChild(thumb);
+                            });
+                            preview.appendChild(grid);
+                        }
+                    });
+                })
+                .catch(e => {
+                    list.innerHTML = '<div style="text-align:center; color:#999; padding:40px;">加载失败</div>';
+                });
+        }
+
+        function toggleHistoryPreview(id, btn) {
+            const preview = document.getElementById('history-preview-' + id);
+            if (preview.style.display === 'none') {
+                preview.style.display = 'block';
+                btn.textContent = '收起';
+            } else {
+                preview.style.display = 'none';
+                btn.textContent = '查看';
+            }
+        }
+
+        function deleteHistory(id) {
+            if (!confirm('确定删除这条记录？')) return;
+            fetch('/api/history/' + id, { method: 'DELETE' })
+                .then(() => loadHistory())
+                .catch(e => alert('删除失败：' + e));
+        }
+    
+        // 上传区域事件监听（修复循环点击问题）
+        document.addEventListener('DOMContentLoaded', function() {
+            var productInput = document.getElementById('productImagesInput');
+            if (productInput) productInput.addEventListener('change', handleProductUpload);
+
+            var ipCatInput = document.getElementById('ipCatInput');
+            if (ipCatInput) ipCatInput.addEventListener('change', function() { handleIpUpload('cat'); });
+
+            var ipDogInput = document.getElementById('ipDogInput');
+            if (ipDogInput) ipDogInput.addEventListener('change', function() { handleIpUpload('dog'); });
+        });
+
+</script>
+</body>
+</html>
