@@ -1,0 +1,25 @@
+# macOS 系统文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*.pyo
+
+# 工作目录（本地专用）
+.workbuddy/
+
+# 生成的图片（体积大，不上传）
+generated_user/
+
+# 上传的临时文件
+uploads/
+
+# 历史记录（本地数据，不上传）
+history.json
+
+# SSH 密钥相关文件
+Enter passphrase (empty for no passphrase)
+Enter passphrase (empty for no passphrase).pub
