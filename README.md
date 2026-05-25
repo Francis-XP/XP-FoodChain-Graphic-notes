@@ -54,8 +54,17 @@ python3 app.py
 - **产品图** — 支持多张上传，生成时按页轮换使用
 - **IP 形象图** — 支持上传猫 / 狗 IP 素材，引导画面风格（不上传则不使用）
 
+<p>
+  <img src="docs/screenshot-upload.png" alt="参考图上传" width="600" />
+</p>
+
 ### 📦 其他功能
 - 📜 生成历史记录，支持查看、下载和删除
+
+<p>
+  <img src="docs/screenshot-history.png" alt="历史记录管理" width="400" />
+</p>
+
 - 📥 一键打包 **ZIP** 下载全部图片
 
 ---
